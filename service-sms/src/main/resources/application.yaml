@@ -51,8 +51,8 @@ logging:
 #阿里云短信
 aliyun:
   sms:
-    region-id: cn-hangzhou
-    key-id: LTAI5tKYNtYQeTTGY1FWyZzP
-    key-secret: 2XMrsG6KMbi0obrqydJyuiThbleNCN
-    template-code: SMS_462165072
-    sign-name: 杨文钧的博客
+    region-id: ****************************
+    key-id: ************************
+    key-secret: **********************
+    template-code: *****************
+    sign-name: ***********
