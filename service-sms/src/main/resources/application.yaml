@@ -27,6 +27,13 @@ spring:
         max-idle: 8     #最大空闲连接，默认8
         min-idle: 0     #最小空闲连接，默认0
 
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    virtual-host: /srbhost
+    username: srbuser
+    password: 123456
+
 feign:
   client:
     config:
@@ -44,8 +51,8 @@ logging:
 #阿里云短信
 aliyun:
   sms:
-    region-id: ********************
-    key-id: *************************
-    key-secret: ***********************
-    template-code: ********************
-    sign-name: ********************
+    region-id: cn-hangzhou
+    key-id: LTAI5tKYNtYQeTTGY1FWyZzP
+    key-secret: 2XMrsG6KMbi0obrqydJyuiThbleNCN
+    template-code: SMS_462165072
+    sign-name: 杨文钧的博客
