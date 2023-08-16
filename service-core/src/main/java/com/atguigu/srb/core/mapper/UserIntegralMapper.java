@@ -2,6 +2,7 @@ package com.atguigu.srb.core.mapper;
 
 import com.atguigu.srb.core.pojo.entity.UserIntegral;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author Helen
  * @since 2023-07-19
  */
+@Mapper
 public interface UserIntegralMapper extends BaseMapper<UserIntegral> {
 
 }

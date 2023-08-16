@@ -1,7 +1,10 @@
 package com.atguigu.srb.core.service;
 
+import com.atguigu.srb.core.pojo.bo.TransFlowBO;
 import com.atguigu.srb.core.pojo.entity.TransFlow;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface TransFlowService extends IService<TransFlow> {
 
+    void saveTransFlow(TransFlowBO transFlow);
+
+    boolean isSaveTransFlow(String agentBillNo);
+
+    List<TransFlow> selectByUserId(Long userId);
 }

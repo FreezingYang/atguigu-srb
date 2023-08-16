@@ -11,6 +11,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 交易流水表 服务实现类
@@ -53,6 +55,14 @@ public class TransFlowServiceImpl extends ServiceImpl<TransFlowMapper, TransFlow
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<TransFlow> selectByUserId(Long userId) {
+        QueryWrapper<TransFlow> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId).orderByDesc("id");
+
+        return baseMapper.selectList(queryWrapper);
     }
 
 }

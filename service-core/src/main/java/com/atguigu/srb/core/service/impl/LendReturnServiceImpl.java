@@ -171,7 +171,7 @@ public class LendReturnServiceImpl extends ServiceImpl<LendReturnMapper, LendRet
 
             //更新出借信息
             LendItem lendItem = lendItemMapper.selectById(item.getLendItemId());
-            lendItem.setRealAmount(item.getInterest());
+            lendItem.setRealAmount(lendItem.getRealAmount().add(item.getInterest())); // 动态的实际受益
             lendItemMapper.updateById(lendItem);
 
             //投资账号转入金额

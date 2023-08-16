@@ -3,6 +3,7 @@ package com.atguigu.srb.core.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.atguigu.common.exception.Assert;
 import com.atguigu.common.result.ResponseEnum;
+import com.atguigu.srb.base.dto.SmsDTO;
 import com.atguigu.srb.core.enums.TransTypeEnum;
 import com.atguigu.srb.core.hfb.FormHelper;
 import com.atguigu.srb.core.hfb.HfbConst;
@@ -15,7 +16,11 @@ import com.atguigu.srb.core.pojo.entity.UserInfo;
 import com.atguigu.srb.core.service.TransFlowService;
 import com.atguigu.srb.core.service.UserAccountService;
 import com.atguigu.srb.core.service.UserBindService;
+import com.atguigu.srb.core.service.UserInfoService;
 import com.atguigu.srb.core.utils.LendNoUtils;
+import com.atguigu.srb.rabbitutil.config.MQConfig;
+import com.atguigu.srb.rabbitutil.constant.MQConst;
+import com.atguigu.srb.rabbitutil.service.MQService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +46,12 @@ public class UserAccountServiceImpl extends ServiceImpl<UserAccountMapper, UserA
 
     @Autowired
     private UserInfoMapper userInfoMapper;
+
+    @Autowired
+    private MQService mqService;
+
+    @Autowired
+    private UserInfoService userInfoService;
 
     @Autowired
     private TransFlowService transFlowService;
@@ -76,7 +87,7 @@ public class UserAccountServiceImpl extends ServiceImpl<UserAccountMapper, UserA
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public String updateAccount(Map<String, Object> paramMap) {
+    public String notify(Map<String, Object> paramMap) {
 
         log.info("充值成功：" + JSONObject.toJSONString(paramMap));
 
@@ -102,6 +113,17 @@ public class UserAccountServiceImpl extends ServiceImpl<UserAccountMapper, UserA
                 TransTypeEnum.RECHARGE,
                 "充值");
         transFlowService.saveTransFlow(transFlowBO);
+
+        // 发送消息
+        String mobile = userInfoService.getMobileByBindCode(bindCode);
+        SmsDTO smsDTO = new SmsDTO();
+        smsDTO.setMobile(mobile);
+        smsDTO.setMessage("2000");
+//        mqService.sendMessage(
+//                MQConst.EXCHANGE_TOPIC_SMS,
+//                MQConst.ROUTING_SMS_ITEM,
+//                smsDTO
+//        );
 
         return "success";
     }
